@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Bienvenido al Minimarket</h1>
+    <button onclick="window.location.href='/agregar-producto'">Agregar Producto</button>
+    <button onclick="window.location.href='/ver-lista-productos'">Ver Lista de Productos</button>
+</body>
+</html>

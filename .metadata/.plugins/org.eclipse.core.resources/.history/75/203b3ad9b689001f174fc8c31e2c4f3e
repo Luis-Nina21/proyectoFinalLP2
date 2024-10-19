@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - Sistema de Ventas de Celulares</title>
+</head>
+<body>
+    <h1>Sistema de Ventas de Celulares</h1>
+    <h2>Bienvenido</h2>
+    <p>Explora los mejores celulares a los mejores precios.</p>
+    <button onclick="location.href='/productos'">Ver Productos</button>
+</body>
+</html>

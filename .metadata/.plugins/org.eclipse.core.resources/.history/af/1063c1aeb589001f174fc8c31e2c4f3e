@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito - Sistema de Ventas de Celulares</title>
+</head>
+<body>
+	<table>
+	    <thead>
+	        <tr>
+	            <th>Marca</th>
+	            <th>Modelo</th>
+	            <th>Precio</th>
+	            <th>Acciones</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each="modelo : ${modelos}">
+	            <td th:text="${modelo.marca.nombre}"></td>
+	            <td th:text="${modelo.nombre}"></td>
+	            <td th:text="${modelo.precio}"></td>
+	            <td>
+	                <a th:href="@{/admin/eliminar/{id}(id=${modelo.id})}">Eliminar</a>
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+
+</body>
+</html>

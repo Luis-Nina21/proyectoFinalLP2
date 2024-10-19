@@ -1,0 +1,46 @@
+package com.proyectoFinal.Controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.proyectoFinal.entidades.Modelo;
+import com.proyectoFinal.services.ModeloService;
+
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
+
+    @Autowired
+    private ModeloService modeloService;
+
+    @GetMapping("/dispositivos")
+    public String listarDispositivos(Model model) {
+        model.addAttribute("modelos", modeloService.obtenerTodosLosModelos());
+        return "admin/listDevices";
+    }
+
+    @GetMapping("/agregar")
+    public String mostrarFormularioAgregar(Model model) {
+        model.addAttribute("marcas", modeloService.obtenerMarcas());
+        model.addAttribute("modelo", new Modelo());
+        return "admin/addDevice";
+    }
+
+    @PostMapping("/agregar")
+    public String agregarDispositivo(@ModelAttribute Modelo modelo) {
+        modeloService.agregarModelo(modelo);
+        return "redirect:/admin/dispositivos";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarDispositivo(@PathVariable Long id) {
+        modeloService.eliminarModelo(id);
+        return "redirect:/admin/dispositivos";
+    }
+}

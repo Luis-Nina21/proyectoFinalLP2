@@ -1,0 +1,18 @@
+<table>
+	    <thead>
+	        <tr>
+	            <th>Modelo</th>
+	            <th>Precio</th>
+	            <th>Cantidad</th>
+	            <th>Total</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each="item : ${carrito}">
+	            <td th:text="${item.nombre}"></td>
+	            <td th:text="${item.precio}"></td>
+	            <td th:text="${item.cantidad}"></td>
+	            <td th:text="${item.precio * item.cantidad}"></td>
+	        </tr>
+	    </tbody>
+	</table>

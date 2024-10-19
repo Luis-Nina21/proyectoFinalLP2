@@ -1,0 +1,8 @@
+package com.cibertec.services;
+
+public class productoService {
+	public Producto addProducto(Producto p) {
+		return null;
+	}
+
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Dispositivo</title>
+</head>
+<body>
+    <h1 th:text="${dispositivo.marca} + ' ' + ${dispositivo.modelo}"></h1>
+    <p>RAM: <span th:text="${dispositivo.ram}"></span> GB</p>
+    <p>Almacenamiento: <span th:text="${dispositivo.almacenamiento}"></span> GB</p>
+    <p>Batería: <span th:text="${dispositivo.bateria}"></span> mAh</p>
+    <p>Cámara: <span th:text="${dispositivo.camara}"></span> MP</p>
+    <p>Precio: S/. <span th:text="${dispositivo.precio}"></span></p>
+    <form th:action="@{/carrito/add}" method="post">
+        <input type="hidden" name="id" th:value="${dispositivo.id}">
+        <button type="submit">Agregar al Carrito</button>
+    </form>
+    <a href="/productos">Volver a Productos</a>
+</body>
+</html>

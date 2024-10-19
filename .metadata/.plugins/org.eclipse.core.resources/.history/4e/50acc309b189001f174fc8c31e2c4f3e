@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalizar Compra</title>
+</head>
+<body>
+    <h1>Finalizar Compra</h1>
+    <form th:action="@{/checkout}" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" required>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" required>
+
+        <h3>Total a Pagar: <span th:text="${total}"></span></h3>
+        <button type="submit">Confirmar Compra</button>
+    </form>
+</body>
+</html>

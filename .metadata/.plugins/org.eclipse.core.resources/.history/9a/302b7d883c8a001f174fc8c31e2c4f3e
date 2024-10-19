@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Producto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header {
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            background-color: rgba(46, 125, 50, 0.7);
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #2E7D32;
+            margin-bottom: 20px;
+            font-family: 'Patrick Hand', cursive;
+            text-align: center;
+        }
+
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        button {
+            background-color: #2E7D32;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1B5E20;
+        }
+
+        .secondary-button {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .secondary-button:hover {
+            background-color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div> <!-- Header con el nombre del minimarket -->
+
+    <form action="#" th:action="@{/agregar-producto}" method="post">
+        <h1>Agregar Producto</h1>
+        
+        <label for="name">Nombre:</label>
+        <input type="text" name="name" required>
+
+        <label for="category">Categoría:</label>
+        <select name="categoryId" required>
+            <option th:each="category : ${categories}" 
+                    th:value="${category.id}" 
+                    th:text="${category.nombre}">Categoría</option>
+        </select>
+
+        <label for="quantity">Cantidad:</label>
+        <input type="number" name="quantity" required>
+
+        <label for="price">Precio Unitario:</label>
+        <input type="number" step="0.01" name="price" required>
+
+        <button type="submit">Agregar Producto</button>
+        <button type="button" class="secondary-button" onclick="window.location.href='/home'">Volver al Inicio</button>
+    </form>
+</body>
+</html>

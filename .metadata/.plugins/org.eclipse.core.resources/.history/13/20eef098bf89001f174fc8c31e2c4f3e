@@ -1,0 +1,26 @@
+package com.proyectoFinal.entidades;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Carrito {
+    private List<Celular> items = new ArrayList<>();
+
+    public void addCelular(Celular celular) {
+        items.add(celular);
+    }
+
+    public List<Celular> getItems() {
+        return items;
+    }
+
+    public double getTotal() {
+        return items.stream().mapToDouble(Celular::getPrecio).sum();
+    }
+
+    public void clear() {
+        items.clear();
+    }
+}
+

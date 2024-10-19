@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard Cliente</title>
+</head>
+<body>
+    <h1>Dashboard Cliente</h1>
+    <h2>Celulares Disponibles</h2>
+    <table>
+        <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="celular : ${celulares}">
+            <td th:text="${celular.marca}"></td>
+            <td th:text="${celular.modelo}"></td>
+            <td th:text="${celular.precio}"></td>
+            <td>
+                <a th:href="@{/client/carrito}">Agregar al Carrito</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

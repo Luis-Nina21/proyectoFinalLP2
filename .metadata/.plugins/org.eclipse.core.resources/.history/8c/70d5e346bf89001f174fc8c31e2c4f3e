@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Carrito de Compras</title>
+</head>
+<body>
+    <h1>Carrito de Compras</h1>
+    <table>
+        <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Precio</th>
+        </tr>
+        <tr th:each="celular : ${carrito.items}">
+            <td th:text="${celular.marca}"></td>
+            <td th:text="${celular.modelo}"></td>
+            <td th:text="${celular.precio}"></td>
+        </tr>
+    </table>
+    <h2>Total: <span th:text="${carrito.total}"></span></h2>
+    <a href="/client/dashboard">Continuar comprando</a>
+</body>
+</html>

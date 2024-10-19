@@ -1,0 +1,86 @@
+package com.proyectoFinal.entidades;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Celular {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    private Marca marca;
+
+    private String nombre;
+    private int ram;
+    private int almacenamiento;
+    private int bateria;
+    private int camara;
+    private double precio;
+    private int cantidadStock;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Marca getMarca() {
+		return marca;
+	}
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public int getRam() {
+		return ram;
+	}
+	public void setRam(int ram) {
+		this.ram = ram;
+	}
+	public int getAlmacenamiento() {
+		return almacenamiento;
+	}
+	public void setAlmacenamiento(int almacenamiento) {
+		this.almacenamiento = almacenamiento;
+	}
+	public int getBateria() {
+		return bateria;
+	}
+	public void setBateria(int bateria) {
+		this.bateria = bateria;
+	}
+	public int getCamara() {
+		return camara;
+	}
+	public void setCamara(int camara) {
+		this.camara = camara;
+	}
+	public double getPrecio() {
+		return precio;
+	}
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+	public int getCantidadStock() {
+		return cantidadStock;
+	}
+	public void setCantidadStock(int cantidadStock) {
+		this.cantidadStock = cantidadStock;
+	}
+    
+    
+    
+
+    // getters y setters
+}

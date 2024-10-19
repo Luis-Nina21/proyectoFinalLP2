@@ -1,0 +1,40 @@
+package com.proyectoFinal.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.proyectFinal.repositories.MarcaRepository;
+import com.proyectFinal.repositories.CelularRepository;
+import com.proyectoFinal.entidades.Marca;
+import com.proyectoFinal.entidades.Celular;
+
+@Service
+public class ModeloService {
+    @Autowired
+    private CelularRepository modeloRepository;
+
+    @Autowired
+    private MarcaRepository marcaRepository;
+
+    public List<Celular> obtenerTodosLosModelos() {
+        return modeloRepository.findAll();
+    }
+
+    public Celular agregarModelo(Celular modelo) {
+        return modeloRepository.save(modelo);
+    }
+
+    public void eliminarModelo(Long id) {
+        modeloRepository.deleteById(id);
+    }
+
+    public Celular obtenerModeloPorId(Long id) {
+        return modeloRepository.findById(id).orElse(null);
+    }
+
+    public List<Marca> obtenerMarcas() {
+        return marcaRepository.findAll();
+    }
+}

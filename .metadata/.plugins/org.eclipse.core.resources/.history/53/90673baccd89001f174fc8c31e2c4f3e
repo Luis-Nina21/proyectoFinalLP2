@@ -1,0 +1,109 @@
+package com.minimarket.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.minimarket.entidades.Categoria;
+import com.minimarket.entidades.Producto;
+import com.minimarket.repository.CategoriaRepository;
+import com.minimarket.repository.ProductoRepository;
+
+import java.util.List;
+
+@Controller
+public class ProductoController {
+
+    @Autowired
+    private ProductoRepository productoRepository;
+    private CategoriaRepository categoriaRepository; // Añadido: repositorio para categorías
+
+
+    @GetMapping("/login")
+    public String login() {
+        return "login"; // nombre de la vista de inicio de sesión
+    }
+
+    @PostMapping("/login")
+    public String loginPost() {
+        return "redirect:/home"; // Redirigir a la vista de inicio
+    }
+
+    @GetMapping("/home")
+    public String home(Model model) {
+        List<Producto> products = productoRepository.findAll(); // Obtener todos los productos de la base de datos
+        model.addAttribute("products", products);
+        return "home"; // nombre de la vista de inicio
+    }
+
+    @GetMapping("/agregar-producto")
+    public String agregarProducto(Model model) {
+        List<Categoria> categories = categoriaRepository.findAll(); // Obtener todas las categorías
+        model.addAttribute("categories", categories);
+        return "agregar-producto"; // nombre de la vista para agregar producto
+    }
+
+    @PostMapping("/agregar-producto")
+    public String guardarProducto(@RequestParam String name,
+                                  @RequestParam long categoryId,
+                                  @RequestParam int quantity,
+                                  @RequestParam double price) {
+        Categoria category = CategoriaRepository.findById(categoryId).orElse(null); // Obtener la categoría por ID
+        if (category != null) {
+            Producto product = new Producto(name, category, quantity, price); // Crear un nuevo producto
+            productoRepository.save(product); // Guardar el producto en la base de datos
+        }
+        return "redirect:/home"; // Redirigir a la lista de productos
+    }
+
+    @GetMapping("/ver-lista-productos")
+    public String verListaProductos(Model model) {
+        List<Producto> products = productoRepository.findAll(); // Obtener todos los productos
+        model.addAttribute("products", products);
+        return "ver-lista-productos"; // nombre de la vista para ver lista de productos
+    }
+
+    @GetMapping("/ver-detalles/{id}")
+    public String verDetalles(@PathVariable int id, Model model) {
+        Product product = productoRepository.findById(id).orElse(null); // Obtener el producto por ID
+        model.addAttribute("product", product);
+        return "ver-detalles"; // nombre de la vista para ver detalles del producto
+    }
+
+    @GetMapping("/modificar-producto/{id}")
+    public String modificarProducto(@PathVariable int id, Model model) {
+        Producto product = productoRepository.findById(id).orElse(null); // Obtener el producto por ID
+        List<Categoria> categories = CategoriaRepository.findAll(); // Obtener todas las categorías
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
+        return "modificar-producto"; // nombre de la vista para modificar producto
+    }
+
+    @PostMapping("/modificar-producto/{id}")
+    public String actualizarProducto(@PathVariable int id,
+                                      @RequestParam String name,
+                                      @RequestParam long categoryId,
+                                      @RequestParam int quantity,
+                                      @RequestParam double price) {
+        Producto product = productoRepository.findById(id).orElse(null);
+        if (product != null) {
+            Categoria category = CategoriaRepository.findById(categoryId).orElse(null);
+            if (category != null) {
+                product.setNombre(name);
+                product.setCategoria(category);
+                product.setCantidad(quantity);
+                product.setPrecioUnitario(price);
+                productoRepository.save(product); // Guardar los cambios en el producto
+            }
+        }
+        return "redirect:/ver-lista-productos"; // Redirigir a la lista de productos
+    }
+
+    @GetMapping("/eliminar-producto/{id}")
+    public String eliminarProducto(@PathVariable int id) {
+        productoRepository.deleteById(id); // Eliminar el producto por ID
+        return "redirect:/ver-lista-productos"; // Redirigir a la lista de productos
+    }
+}

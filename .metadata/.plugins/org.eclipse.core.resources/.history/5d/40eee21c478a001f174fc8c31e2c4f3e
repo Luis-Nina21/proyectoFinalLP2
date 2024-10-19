@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles del Producto</title>
+</head>
+<body>
+    <h1>Detalles de Producto</h1>
+    <p><strong>Nombre:</strong> <span th:text="${product.nombre}"></span></p>
+    <p><strong>Categoría:</strong> <span th:text="${product.categoria.nombre}"></span></p>
+    <p><strong>Cantidad:</strong> <span th:text="${product.cantidad}"></span></p>
+    <p><strong>Precio Unitario:</strong> <span th:text="${product.precioUnitario}"></span></p>
+    <p><strong>Subtotal:</strong> <span th:text="${product.subtotal}"></span></p>
+    
+    <button onclick="window.location.href='/ver-lista-productos'">Volver a la Lista</button>
+</body>
+</html>

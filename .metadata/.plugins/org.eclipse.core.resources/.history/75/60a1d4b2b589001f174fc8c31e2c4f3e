@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Dispositivo</title>
+</head>
+<body>
+	<table>
+	    <thead>
+	        <tr>
+	            <th>Marca</th>
+	            <th>Modelo</th>
+	            <th>Precio</th>
+	            <th>Stock</th>
+	            <th>Acciones</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each="modelo : ${modelos}">
+	            <td th:text="${modelo.marca.nombre}"></td>
+	            <td th:text="${modelo.nombre}"></td>
+	            <td th:text="${modelo.precio}"></td>
+	            <td th:text="${modelo.cantidadStock}"></td>
+	            <td>
+	                <form action="#" th:action="@{/cliente/agregarAlCarrito}" method="post">
+	                    <input type="hidden" th:value="${modelo.id}" name="modeloId">
+	                    <input type="number" name="cantidad" min="1" max="${modelo.cantidadStock}">
+	                    <button type="submit">Agregar al carrito</button>
+	                </form>
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+   
+</body>
+</html>

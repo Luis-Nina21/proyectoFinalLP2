@@ -1,0 +1,28 @@
+package com.proyectoFinal.Controllers;
+
+@Controller
+@RequestMapping("/cliente")
+public class ClienteController {
+
+    @Autowired
+    private ModeloService modeloService;
+
+    @GetMapping("/dispositivos")
+    public String verDispositivos(Model model) {
+        model.addAttribute("marcas", modeloService.obtenerMarcas());
+        model.addAttribute("modelos", modeloService.obtenerTodosLosModelos());
+        return "user/viewDevices";
+    }
+
+    @PostMapping("/agregarAlCarrito")
+    public String agregarAlCarrito(@RequestParam Long modeloId, @RequestParam int cantidad, Model model) {
+        // lógica para agregar al carrito
+        return "redirect:/cliente/carrito";
+    }
+
+    @GetMapping("/carrito")
+    public String verCarrito(Model model) {
+        // Mostrar productos en el carrito
+        return "user/cart";
+    }
+}

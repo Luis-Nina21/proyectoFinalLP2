@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito - Sistema de Ventas de Celulares</title>
+</head>
+<body>
+    <h1>Sistema de Ventas de Celulares</h1>
+    <h2>Carrito de Compras</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${carritoItems}">
+                <td th:text="${item.modelo}"></td>
+                <td th:text="${item.cantidad}"></td>
+                <td th:text="${item.precio}"></td>
+                <td th:text="${item.cantidad * item.precio}"></td>
+                <td>
+                    <a th:href="@{/carrito/remove/{id}(id=${item.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Total a Pagar: <span th:text="${total}"></span></h3>
+    <button th:onclick="location.href='/checkout'">Finalizar Compra</button>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login - Minimarket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://t4.ftcdn.net/jpg/06/63/16/45/360_F_663164516_iROkqpM1RCrA765j6hLMp1v6Lf2xPnU1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .header {
+            position: absolute;
+            top: 25px; /* Ajuste la distancia desde la parte superior */
+            left: 25px; /* Ajuste la distancia desde la izquierda */
+            font-size: 50px; /* Tamaño del texto */
+            font-weight: bold; /* Negrita */
+            color: white; /* Color blanco para el nombre del minimarket */
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Altura completa de la ventana */
+        }
+
+        .login-form {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+            border-radius: 8px; /* Bordes redondeados */
+            padding: 40px; /* Aumentar espaciado interno para hacerlo más grande */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+            text-align: center; /* Centrar el texto */
+			width: 600px; /* Aumentar ancho del formulario */
+		height: 600px; /* Aumentar ancho del formulario */
+        }
+
+        .user-icon {
+            width: 100px; /* Ancho del icono */
+            height: 100px; /* Alto del icono */
+            border-radius: 50%; /* Hacer el icono redondo */
+            margin-bottom: 20px; /* Espaciado inferior */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* Espaciado inferior del título */
+            font-size: 28px; /* Tamaño del título */
+            color: #2E7D32; /* Color verde */
+        }
+
+        label {
+            display: block; /* Para que cada etiqueta ocupe su propia línea */
+            margin-bottom: 5px; /* Espaciado inferior */
+            font-weight: bold; /* Negrita */
+            color: #333; /* Color del texto */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%; /* Ancho completo */
+            padding: 10px; /* Espaciado interno */
+            margin-bottom: 15px; /* Espaciado inferior */
+            border: 1px solid #A5D6A7; /* Borde verde claro */
+            border-radius: 4px; /* Bordes redondeados */
+            transition: border-color 0.3s; /* Transición suave para el cambio de color */
+        }
+
+        /* Cambiar el color del borde al hacer clic */
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #1B5E20; /* Borde verde oscuro al hacer clic */
+            outline: none; /* Quitar el borde azul por defecto */
+        }
+
+        button {
+            background-color: #2E7D32; /* Color verde del minimarket */
+            color: white; /* Color del texto */
+            padding: 10px; /* Espaciado interno */
+            border: none; /* Sin borde */
+            border-radius: 4px; /* Bordes redondeados */
+            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+            width: 100%; /* Ancho completo */
+            font-size: 16px; /* Tamaño de fuente */
+        }
+
+        button:hover {
+            background-color: #1B5E20; /* Color más oscuro al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div> <!-- Nombre del minimarket -->
+    <div class="login-container">
+        <div class="login-form">
+            <img src="https://cdn-icons-png.freepik.com/512/7077/7077313.png" alt="User Icon" class="user-icon">
+            <h1>Login</h1>
+            <form th:action="@{/login}" method="post">
+                <label for="username">Username:</label>
+                <input type="text" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" name="password" required>
+                <button type="submit">Ingresar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

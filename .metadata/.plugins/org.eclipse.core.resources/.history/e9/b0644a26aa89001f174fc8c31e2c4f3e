@@ -1,0 +1,24 @@
+package com.proyectoFinal.entidades;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class DetalleVenta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private Venta venta;
+
+    @ManyToOne
+    private Modelo modelo;
+
+    private int cantidad;
+    private double precioUnitario;
+
+    // getters y setters
+}

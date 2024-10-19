@@ -1,0 +1,30 @@
+package com.proyectoFinal.services;
+
+@Service
+public class ModeloService {
+    @Autowired
+    private ModeloRepository modeloRepository;
+
+    @Autowired
+    private MarcaRepository marcaRepository;
+
+    public List<Modelo> obtenerTodosLosModelos() {
+        return modeloRepository.findAll();
+    }
+
+    public Modelo agregarModelo(Modelo modelo) {
+        return modeloRepository.save(modelo);
+    }
+
+    public void eliminarModelo(Long id) {
+        modeloRepository.deleteById(id);
+    }
+
+    public Modelo obtenerModeloPorId(Long id) {
+        return modeloRepository.findById(id).orElse(null);
+    }
+
+    public List<Marca> obtenerMarcas() {
+        return marcaRepository.findAll();
+    }
+}

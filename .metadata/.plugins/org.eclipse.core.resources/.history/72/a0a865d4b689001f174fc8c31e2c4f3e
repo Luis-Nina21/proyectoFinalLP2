@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente - Sistema de Ventas de Celulares</title>
+</head>
+<body>
+    <h1>Sistema de Ventas de Celulares</h1>
+    <h2>Productos Disponibles</h2>
+
+    <label for="marca">Seleccionar Marca:</label>
+    <select id="marca" name="marca" onchange="fetchModelos(this.value)">
+        <option value="">Seleccione una marca</option>
+        <option value="Samsung">Samsung</option>
+        <option value="Xiaomi">Xiaomi</option>
+        <option value="Huawei">Huawei</option>
+        <option value="Motorola">Motorola</option>
+        <option value="iPhone">iPhone</option>
+    </select>
+
+    <h3>Modelos Disponibles</h3>
+    <ul id="modelo-list">
+        <li th:each="dispositivo : ${dispositivos}" th:text="${dispositivo.modelo}" th:if="${dispositivo.marca == selectedMarca}"></li>
+    </ul>
+
+    <h3>Carrito</h3>
+    <div id="carrito">
+        <button onclick="window.location.href='/carrito'">Ver Carrito</button>
+    </div>
+
+    <script>
+        function fetchModelos(marca) {
+            // Lógica para obtener los modelos de la marca seleccionada.
+        }
+    </script>
+</body>
+</html>

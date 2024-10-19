@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Productos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://t4.ftcdn.net/jpg/06/63/16/45/360_F_663164516_iROkqpM1RCrA765j6hLMp1v6Lf2xPnU1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .header {
+            font-size: 50px; 
+            font-weight: bold; 
+            color: white; 
+            background-color: rgba(46, 125, 50, 0.7); 
+            padding: 10px 0; 
+            margin-bottom: 40px; 
+            text-align: center;
+        }
+
+        .container {
+            width: 80%; /* Ancho del 80% de la pantalla */
+            margin: 50px auto; /* Centrar y separar del borde superior */
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+            padding: 30px;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #2E7D32; /* Verde oscuro */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .filter-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .filter-container label {
+            margin-right: 10px;
+        }
+
+        .filter-container select {
+            padding: 8px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        thead th {
+            background-color: #2E7D32; /* Verde oscuro */
+            color: white;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2; /* Fila con color de fondo suave */
+        }
+
+        tbody td {
+            border-bottom: 1px solid #ddd; /* Línea de separación */
+        }
+
+        a {
+            color: #2E7D32; /* Enlaces verdes */
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espacio entre los botones */
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #2E7D32; /* Verde oscuro */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1B5E20; /* Verde más oscuro al pasar el mouse */
+        }
+
+        /* Responsive para dispositivos móviles */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%; /* Ajuste del ancho en pantallas pequeñas */
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px; /* Menos espacio entre botones en pantallas pequeñas */
+            }
+
+            button {
+                width: 100%; /* Ancho completo del botón en pantallas pequeñas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div>
+    <div class="container">
+        <h1>Lista de Productos</h1>
+        <div class="filter-container">
+            <form th:action="@{/productos}" method="get">
+                <label for="categoria">Filtrar por categoría:</label>
+                <select id="categoria" name="categoria">
+                    <option value="">Todas</option>
+                    <option th:each="categoria : ${categorias}" 
+                            th:value="${categoria.id}" 
+                            th:text="${categoria.nombre}"></option>
+                </select>
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.nombre}"></td>
+                    <td th:text="${product.categoria.nombre}"></td>
+                    <td th:text="${product.cantidad}"></td>
+                    <td th:text="${product.precioUnitario}"></td>
+                    <td th:text="${product.subtotal}"></td>
+                    <td>
+                        <a th:href="@{/ver-detalles/{id}(id=${product.id})}">Ver Detalles</a>
+                        <a th:href="@{/modificar-producto/{id}(id=${product.id})}">Modificar</a>
+                        <a th:href="@{/eliminar-producto/{id}(id=${product.id})}" onclick="return confirm('¿Está seguro de eliminar este producto?');">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="window.location.href='/home'">Volver al Inicio</button>
+            <button onclick="window.location.href='/agregar-producto'">Registrar Nuevo Producto</button>
+        </div>
+    </div>
+</body>
+</html>

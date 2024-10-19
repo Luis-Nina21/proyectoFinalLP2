@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard Admin</title>
+</head>
+<body>
+    <h1>Dashboard Admin</h1>
+    <a th:href="@{/admin/celular/new}">Agregar Celular</a>
+    <table>
+        <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="celular : ${celulares}">
+            <td th:text="${celular.marca}"></td>
+            <td th:text="${celular.modelo}"></td>
+            <td th:text="${celular.precio}"></td>
+            <td>
+                <a th:href="@{/admin/celular/delete(id=${celular.id})}">Eliminar</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

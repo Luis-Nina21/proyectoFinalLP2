@@ -1,0 +1,22 @@
+package com.proyectoFinal.entidades;
+
+@Entity
+public class Modelo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    private Marca marca;
+
+    private String nombre;
+    private int ram;
+    private int almacenamiento;
+    private int bateria;
+    private int camara;
+    private double precio;
+    private int cantidadStock;
+
+    // getters y setters
+}

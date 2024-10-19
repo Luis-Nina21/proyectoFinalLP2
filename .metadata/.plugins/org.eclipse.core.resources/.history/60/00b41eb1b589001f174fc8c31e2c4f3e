@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+	<form action="#" th:action="@{/admin/agregar}" th:object="${modelo}" method="post">
+	    <select th:field="*{marca.id}">
+	        <option th:each="marca : ${marcas}" th:value="${marca.id}" th:text="${marca.nombre}"></option>
+	    </select>
+	    <input type="text" th:field="*{nombre}" placeholder="Modelo">
+	    <!-- más campos como RAM, Almacenamiento, etc. -->
+	    <button type="submit">Agregar</button>
+	</form>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Sistema de Ventas de Celulares</title>
+</head>
+<body>
+    <h1>Sistema de Ventas de Celulares</h1>
+    <h2>Panel de Administración</h2>
+
+    <h3>Agregar Nuevo Dispositivo</h3>
+    <form th:action="@{/admin/dispositivos}" method="post">
+        <label for="marca">Marca:</label>
+        <select id="marca" name="marca" required>
+            <option value="Samsung">Samsung</option>
+            <option value="Xiaomi">Xiaomi</option>
+            <option value="Huawei">Huawei</option>
+            <option value="Motorola">Motorola</option>
+            <option value="iPhone">iPhone</option>
+        </select>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required>
+        
+        <label for="ram">RAM (GB):</label>
+        <input type="number" id="ram" name="ram" required>
+        
+        <label for="almacenamiento">Almacenamiento (GB):</label>
+        <input type="number" id="almacenamiento" name="almacenamiento" required>
+        
+        <label for="bateria">Batería (mAh):</label>
+        <input type="number" id="bateria" name="bateria" required>
+        
+        <label for="camara">Cámara (MP):</label>
+        <input type="number" id="camara" name="camara" required>
+        
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" required>
+
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" name="cantidad" required>
+        
+        <button type="submit">Agregar Dispositivo</button>
+    </form>
+
+    <h3>Lista de Dispositivos</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>RAM</th>
+                <th>Almacenamiento</th>
+                <th>Batería</th>
+                <th>Cámara</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="dispositivo : ${dispositivos}">
+                <td th:text="${dispositivo.marca}"></td>
+                <td th:text="${dispositivo.modelo}"></td>
+                <td th:text="${dispositivo.ram}"></td>
+                <td th:text="${dispositivo.almacenamiento}"></td>
+                <td th:text="${dispositivo.bateria}"></td>
+                <td th:text="${dispositivo.camara}"></td>
+                <td th:text="${dispositivo.precio}"></td>
+                <td th:text="${dispositivo.cantidad}"></td>
+                <td>
+                    <a th:href="@{/admin/dispositivos/{id}(id=${dispositivo.id})}">Modificar</a>
+                    <a th:href="@{/admin/dispositivos/delete/{id}(id=${dispositivo.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,5 @@
+package com.proyectFinal.repositories;
+
+public class DetalleVentaRepository {
+
+}

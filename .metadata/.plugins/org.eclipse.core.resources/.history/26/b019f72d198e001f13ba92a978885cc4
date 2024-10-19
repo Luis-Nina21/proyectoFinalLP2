@@ -1,0 +1,17 @@
+package com.cibertec.services;
+
+public class productoService {
+	public Producto createProducto(Producto p) {
+		return null;
+	}
+	public Producto readProducto(Producto p) {
+		return null;
+	}
+	public Producto addProducto(Producto p) {
+		return null;
+	}
+	public Producto addProducto(Producto p) {
+		return null;
+	}
+
+}

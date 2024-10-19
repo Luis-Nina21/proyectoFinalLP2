@@ -1,0 +1,58 @@
+package com.proyectoFinal.Controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.proyectoFinal.entidades.Celular; // Asegúrate de importar tu modelo
+import com.proyectoFinal.services.UserService;
+import com.proyectoFinal.services.VentaService; // Asegúrate de importar el servicio de ventas
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping("/cliente")
+public class ClienteController {
+
+    @Autowired
+    private UserService modeloService;
+
+    @Autowired
+    private VentaService ventaService; // Servicio para manejar ventas
+
+    private List<Celular> carrito = new ArrayList<>(); // Carrito en memoria (puedes cambiar a sesión)
+
+    @GetMapping("/dispositivos")
+    public String verDispositivos(Model model) {
+        model.addAttribute("marcas", modeloService.obtenerMarcas());
+        model.addAttribute("modelos", modeloService.obtenerTodosLosModelos());
+        return "user/viewDevices";
+    }
+
+    @PostMapping("/agregarAlCarrito")
+    public String agregarAlCarrito(@RequestParam Long modeloId, @RequestParam int cantidad, RedirectAttributes redirectAttributes) {
+        Celular modelo = modeloService.obtenerModeloPorId(modeloId);
+        if (modelo != null && cantidad > 0 && cantidad <= modelo.getCantidadStock()) {
+            // Lógica para agregar al carrito
+            for (int i = 0; i < cantidad; i++) {
+                carrito.add(modelo);
+            }
+            redirectAttributes.addFlashAttribute("mensaje", "Dispositivo agregado al carrito con éxito.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Cantidad no válida.");
+        }
+        return "redirect:/cliente/dispositivos";
+    }
+
+    @GetMapping("/carrito")
+    public String verCarrito(Model model) {
+        model.addAttribute("productos", carrito);
+        return "user/cart";
+    }
+}

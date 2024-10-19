@@ -1,0 +1,43 @@
+package com.proyectoFinal.Controllers;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.proyectoFinal.entidades.Celular;
+import com.proyectoFinal.services.CelularService;
+
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
+    @Autowired
+    private CelularService celularService;
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
+        model.addAttribute("celulares", celularService.findAll());
+        return "admin/admin_dashboard";
+    }
+
+    @GetMapping("/celular/new")
+    public String newCelular(Model model) {
+        model.addAttribute("celular", new Celular());
+        return "admin/celular_form";
+    }
+
+    @PostMapping("/celular/save")
+    public String saveCelular(Celular celular) {
+        celularService.save(celular);
+        return "redirect:/admin/dashboard";
+    }
+
+    @GetMapping("/celular/delete")
+    public String deleteCelular(Long id) {
+        celularService.delete(id);
+        return "redirect:/admin/dashboard";
+    }
+}

@@ -1,0 +1,45 @@
+package com.minimarket.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.minimarket.entidades.User;
+import com.minimarket.services.UserService;
+
+@Controller
+@RequestMapping("/auth")
+public class UserController {
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/registro")
+    public String registro() {
+        return "registro";
+    }
+
+    @PostMapping("/registro")
+    public String guardarUsuario(@ModelAttribute User user) {
+        userService.save(user);
+        return "redirect:/auth/login";
+    }
+
+    @PostMapping("/login")
+    public String autenticarUsuario(@RequestParam String username, @RequestParam String password, Model model) {
+        User user = userService.findByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            // Aquí puedes gestionar la sesión del usuario
+            return "redirect:/productos";
+        }
+        model.addAttribute("error", "Credenciales incorrectas");
+        return "login";
+    }
+}
+

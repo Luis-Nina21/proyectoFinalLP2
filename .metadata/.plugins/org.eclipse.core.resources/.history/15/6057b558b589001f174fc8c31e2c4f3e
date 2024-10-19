@@ -1,0 +1,27 @@
+package com.proyectoFinal.Controllers;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/client")
+public class ClientController {
+    @Autowired
+    private CelularService celularService;
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
+        model.addAttribute("celulares", celularService.findAll());
+        return "client/client_dashboard";
+    }
+
+    @GetMapping("/carrito")
+    public String carrito(Model model) {
+        // Aquí puedes agregar la lógica para mostrar el carrito de compras
+        return "client/carrito";
+    }
+}

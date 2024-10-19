@@ -1,0 +1,27 @@
+package com.proyectoFinal.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.proyectFinal.repositories.DetalleVentaRepository;
+import com.proyectFinal.repositories.VentaRepository;
+import com.proyectoFinal.entidades.Venta;
+
+@Service
+public class CelularService {
+    @Autowired
+    private VentaRepository ventaRepository;
+
+    @Autowired
+    private DetalleVentaRepository detalleVentaRepository;
+
+    public Venta realizarVenta(Venta venta) {
+        return ventaRepository.save(venta);
+    }
+
+    public List<Venta> obtenerHistorialVentas() {
+        return ventaRepository.findAll();
+    }
+}

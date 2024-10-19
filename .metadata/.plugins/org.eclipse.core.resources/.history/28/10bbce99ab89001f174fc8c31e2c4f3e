@@ -1,0 +1,18 @@
+package com.proyectoFinal.services;
+
+@Service
+public class VentaService {
+    @Autowired
+    private VentaRepository ventaRepository;
+
+    @Autowired
+    private DetalleVentaRepository detalleVentaRepository;
+
+    public Venta realizarVenta(Venta venta) {
+        return ventaRepository.save(venta);
+    }
+
+    public List<Venta> obtenerHistorialVentas() {
+        return ventaRepository.findAll();
+    }
+}

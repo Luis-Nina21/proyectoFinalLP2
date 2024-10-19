@@ -1,0 +1,5 @@
+package com.minimarket.repository;
+
+public class ProductoRepository {
+
+}

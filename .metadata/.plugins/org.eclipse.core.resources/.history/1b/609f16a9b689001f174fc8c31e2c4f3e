@@ -1,0 +1,39 @@
+package com.proyectoFinal.Controllers;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.proyectoFinal.entidades.Celular;
+import com.proyectoFinal.services.CelularService;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@SessionAttributes("carrito")
+public class CarritoController {
+    @Autowired
+    private CelularService celularService;
+
+    @ModelAttribute("carrito")
+    public Carrito getCarrito() {
+        return new Carrito();
+    }
+
+    @PostMapping("/client/carrito/add")
+    public String addCelularToCart(Long id, @ModelAttribute("carrito") Carrito carrito) {
+        Celular celular = celularService.findById(id);
+        carrito.addCelular(celular);
+        return "redirect:/client/carrito";
+    }
+
+    @GetMapping("/client/carrito")
+    public String viewCarrito(@ModelAttribute("carrito") Carrito carrito, Model model) {
+        model.addAttribute("carrito", carrito);
+        return "client/carrito";
+    }
+}

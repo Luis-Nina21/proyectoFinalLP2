@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Asegúrate de que este archivo exista -->
+</head>
+<body>
+    <h1>Bienvenido a Minimarket</h1>
+    <div>
+        <a href="/agregar-producto" class="button">Agregar Producto</a>
+        <a href="/ver-lista-productos" class="button">Ver Lista de Productos</a>
+    </div>
+</body>
+</html>

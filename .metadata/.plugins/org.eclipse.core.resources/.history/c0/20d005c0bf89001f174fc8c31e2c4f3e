@@ -1,0 +1,24 @@
+package com.proyectoFinal.entidades;
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class Producto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String categoria;
+
+    private String nombre;
+
+    private int cantidad;
+
+    private double precioUnitario;
+
+    @Transient // Este campo no se guardará en la base de datos
+    private double subtotal;
+
+    // Getters and Setters
+}

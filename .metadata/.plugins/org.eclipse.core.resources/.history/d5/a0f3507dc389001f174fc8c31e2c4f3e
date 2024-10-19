@@ -1,0 +1,5 @@
+package com.minimarket.controller;
+
+public class UserController {
+
+}

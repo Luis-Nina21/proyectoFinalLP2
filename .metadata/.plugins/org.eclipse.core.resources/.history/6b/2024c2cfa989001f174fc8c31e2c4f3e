@@ -1,0 +1,29 @@
+package com.proyectoFinal.entidades;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Modelo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    private Marca marca;
+
+    private String nombre;
+    private int ram;
+    private int almacenamiento;
+    private int bateria;
+    private int camara;
+    private double precio;
+    private int cantidadStock;
+
+    // getters y setters
+}

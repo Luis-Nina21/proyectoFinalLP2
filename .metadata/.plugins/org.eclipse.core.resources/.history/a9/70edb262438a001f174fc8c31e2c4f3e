@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://t4.ftcdn.net/jpg/06/63/16/45/360_F_663164516_iROkqpM1RCrA765j6hLMp1v6Lf2xPnU1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .header {
+            font-size: 50px; 
+            font-weight: bold; 
+            color: white; 
+            background-color: rgba(46, 125, 50, 0.7); 
+            padding: 10px 0; 
+            margin-bottom: 40px; 
+            text-align: center;
+        }
+
+        .container {
+            width: 80%; /* Ancho del 80% de la pantalla */
+            margin: 50px auto; /* Centrar y separar del borde superior */
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+            padding: 30px;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #2E7D32; /* Verde oscuro */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .filter-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .filter-container label {
+            margin-right: 10px;
+        }
+
+        .filter-container select {
+            padding: 8px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        thead th {
+            background-color: #2E7D32; /* Verde oscuro */
+            color: white;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2; /* Fila con color de fondo suave */
+        }
+
+        tbody td {
+            border-bottom: 1px solid #ddd; /* Línea de separación */
+        }
+
+        .action-button {
+            border: none;
+            border-radius: 50%; /* Botones circulares */
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .btn-eliminar {
+            background-color: red; /* Rojo para eliminar */
+            color: white;
+        }
+
+        .btn-modificar {
+            background-color: blue; /* Azul para modificar */
+            color: white;
+        }
+
+        .btn-ver-detalles {
+            background-color: yellow; /* Amarillo para ver detalles */
+            color: black;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espacio entre los botones */
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #2E7D32; /* Verde oscuro */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1B5E20; /* Verde más oscuro al pasar el mouse */
+        }
+
+        /* Estilos para el modal */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Habilitar desplazamiento si es necesario */
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo negro con opacidad */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% desde la parte superior y centrado */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Ancho del modal */
+            max-width: 500px; /* Ancho máximo del modal */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Responsive para dispositivos móviles */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%; /* Ajuste del ancho en pantallas pequeñas */
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px; /* Menos espacio entre botones en pantallas pequeñas */
+            }
+
+            button {
+                width: 100%; /* Ancho completo del botón en pantallas pequeñas */
+            }
+            #confirmation-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                border: 1px solid #ccc;
+                padding: 20px;
+                z-index: 1000;
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div>
+    <div class="container">
+        <h1>Lista de Productos</h1>
+        <div class="filter-container">
+            <form method="get" action="/ver-lista-productos">
+                <label for="categoria">Filtrar por categoría:</label>
+                <select id="categoria" name="categoriaId">
+                    <option value="">Todas</option>
+                    <th:block th:each="categoria : ${categorias}">
+                        <option th:value="${categoria.id}" 
+                                th:text="${categoria.nombre}" 
+                                th:selected="${selectedCategoryId == categoria.id}"></option>
+                    </th:block>
+                </select>
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.nombre}"></td>
+                    <td th:text="${product.categoria.nombre}"></td>
+                    <td th:text="${product.cantidad}"></td>
+                    <td th:text="${product.precioUnitario}"></td>
+                    <td th:text="${product.subtotal}"></td>
+                    <td>
+                        <button class="action-button btn-ver-detalles" 
+                                th:onclick="'window.location.href=\'/ver-detalles/' + ${product.id} + '\''">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-button btn-modificar" 
+                                th:onclick="'window.location.href=\'/modificar-producto/' + ${product.id} + '\''">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-button btn-eliminar" 
+                                onclick="openModal('${product.nombre}', ${product.id});">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="window.location.href='/home'">Volver al Inicio</button>
+            <button onclick="window.location.href='/agregar-producto'">Registrar Nuevo Producto</button>
+        </div>
+    </div>
+
+    <!-- Formulario de confirmación -->
+    <div id="confirmation-modal" style="display: none;">
+        <h2>Confirmar eliminación</h2>
+        <p id="product-info"></p>
+        <button id="confirm-delete">Confirmar eliminación</button>
+        <button id="cancel-delete">Cancelar</button>
+    </div>
+
+    <script>
+        let productIdToDelete = null;
+
+        function openModal(productName, productId) {
+            document.getElementById('product-info').innerText = "¿Estás seguro de que deseas eliminar el producto: " + productName + "?";
+            productIdToDelete = productId; // Guardar el ID del producto a eliminar
+            document.getElementById('confirmation-modal').style.display = 'block';
+        }
+
+        document.getElementById('cancel-delete').onclick = function() {
+            document.getElementById('confirmation-modal').style.display = 'none'; // Cerrar el modal
+        }
+
+        document.getElementById('confirm-delete').onclick = function() {
+            if (productIdToDelete) {
+                window.location.href = '/eliminar-producto/' + productIdToDelete; // Redirigir para eliminar el producto
+            }
+        }
+    </script>
+</body>
+</html>
